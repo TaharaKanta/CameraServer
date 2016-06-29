@@ -1,6 +1,5 @@
 package jp.co.spookies.android.cameraserver;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -29,9 +28,13 @@ import android.view.WindowManager;
 public class CameraActivity extends Activity {
     private final int INTERVAL = 300;
     private final int QUALITY = 30;
+    private Camera mCamera = null;
+
     ICameraServer mService = null;
+
     private ServiceConnection connection = new ServiceConnection() {
         public void onServiceConnected(ComponentName name, IBinder service) {
+
             mService = ICameraServer.Stub.asInterface(service);
         }
 

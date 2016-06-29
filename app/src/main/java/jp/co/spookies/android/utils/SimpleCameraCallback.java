@@ -20,6 +20,7 @@ public class SimpleCameraCallback implements SurfaceHolder.Callback {
     private Camera.Parameters params = null;
     private boolean timerLock = false;
     private Context context = null;
+
     private final File path = new File(
             Environment
                     .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
@@ -72,7 +73,6 @@ public class SimpleCameraCallback implements SurfaceHolder.Callback {
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
         params = camera.getParameters();
-
         // プレビューサイズ設定
         List<Camera.Size> supportedPreviewSizes = params
                 .getSupportedPreviewSizes();
