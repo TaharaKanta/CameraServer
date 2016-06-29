@@ -13,6 +13,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 
 public abstract class WebSocketService extends Service {
 	private NotificationManager mNM;
@@ -41,15 +42,27 @@ public abstract class WebSocketService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Notification notification = new Notification(
-				R.drawable.notification_icon, getText(R.string.start_service),
+
+		NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		Notification notification = new Notification.Builder(this)
+				.setContentIntent(pendingIntent)
+				.setAutoCancel(true)
+				.setTicker("abcdefghijklmnop")
+				.setContentTitle("bbb")
+				.setContentText(getIpAddress())
+				.setSmallIcon(android.R.drawable.ic_dialog_info)
+				.build();
+
+		manager.notify(0, notification);
+
+
+	/*			R.drawable.notification_icon, getText(R.string.start_service),
 				System.currentTimeMillis());
 		PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
 				new Intent(this, Controller.class), 0);
-		notification.setLatestEventInfo(this, getText(R.string.app_name),
-				getIpAddress(), contentIntent);
 		notification.flags = Notification.FLAG_ONGOING_EVENT;
-		mNM.notify(R.string.app_name, notification);
+		mNM.notify(R.string.app_name, notification);*/
 		return START_STICKY;
 	}
 
